@@ -1,5 +1,10 @@
 package com.example.springboot.entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
+import java.util.Map;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +14,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+
+@TypeDefs({
+	@TypeDef(
+		    name = "list-array",
+		    typeClass = ListArrayType.class
+		)
+})
 @Entity
 @Table(name = "candidate")
 public class Candidate {
@@ -56,11 +72,19 @@ public class Candidate {
 	@Column(name = "hrId")
 	private long hrId;
 	
+	@Column(name = "jobId")
+	private long jobId;
+	
+	@Type(type = "list-array")
+	@Column(name = "schools")
+	@JsonProperty("schools")
+	private List<String> schools;
+	
 	public Candidate() {}
 
 	public Candidate(@NotNull String name, @NotNull @Email String mail, @NotNull String phone, @NotNull String location,
 			@NotNull String status, String title, String jobLocation, String startDate, int roundInterview,
-			long interviewerId, long hrId) {
+			long interviewerId, long hrId, long jobId, List<String> schools) {
 		super();
 		this.name = name;
 		this.mail = mail;
@@ -73,6 +97,8 @@ public class Candidate {
 		this.roundInterview = roundInterview;
 		this.interviewerId = interviewerId;
 		this.hrId = hrId;
+		this.jobId = jobId;
+		this.schools = schools;
 	}
 
 	public int getRoundInterview() {
@@ -169,6 +195,22 @@ public class Candidate {
 
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
+	}
+
+	public List<String> getSchools() {
+		return schools;
+	}
+
+	public void setSchools(List<String> schools) {
+		this.schools = schools;
+	}
+
+	public long getJobId() {
+		return jobId;
+	}
+
+	public void setJobId(long jobId) {
+		this.jobId = jobId;
 	}
 
 	

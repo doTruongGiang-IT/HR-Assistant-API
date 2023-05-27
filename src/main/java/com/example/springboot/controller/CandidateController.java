@@ -67,6 +67,8 @@ public class CandidateController {
 		candidate.setStartDate(updateCandidate.getStartDate());
 		candidate.setInterviewerId(updateCandidate.getInterviewerId());
 		candidate.setHrId(updateCandidate.getHrId());
+		candidate.setJobId(updateCandidate.getJobId());
+		candidate.setSchools(updateCandidate.getSchools());
 		Candidate editEmployee = candidateRepository.save(candidate);
 		return ResponseEntity.ok().body(editEmployee);
 	};

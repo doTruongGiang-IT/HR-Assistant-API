@@ -61,6 +61,7 @@ public class JobController {
 		interviewer.setJobTitle(updateJob.getJobTitle());
 		interviewer.setInterviewerId(updateJob.getInterviewerId());
 		interviewer.setHrId(updateJob.getHrId());
+		interviewer.setListInterviewerId(updateJob.getListInterviewerId());
 		Job editEmployee = jobRepository.save(interviewer);
 		return ResponseEntity.ok().body(editEmployee);
 	};
